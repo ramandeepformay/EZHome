@@ -1,11 +1,25 @@
-
-
+import React from "react"
+import { BrowserRouter, Route, Routes} from "react-router-dom"
+import About from "./pages/About"
+import Home from "./pages/Home"
+import Profile from "./pages/Profile"
+import Signin from "./pages/Signin"
+import Signout from "./pages/Signout"
+import Header from "./components/Header"
 function App() {
   return (
     <>
-      <p className="text-3xl font-bold underline">
-        Hello world!
-      </p>
+    <BrowserRouter>
+      <Header/>
+        <Routes>
+          <Route path="/about" element={<About/>}/>
+          <Route path= "/home" element={<Home/>}/>
+          <Route path = "/profile" element={<Profile/>}/>
+          <Route path = "/signin" element={<Signin/>}/>
+          <Route path ="/signout" element={<Signout/>}/>
+        </Routes>
+    
+    </BrowserRouter>
     </>
   )
 }
