@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 const Header = () => {
     return (
         <header className='bg-stone-400 flex flex-wrap justify-between items-center p-4 max-w-8xl mx-auto shadow-lg'>
-            <Link to="/Home">
+            <Link to="/home">
                 <div>
                     <h1 className='flex flex-wrap text-2xl sm:text-4xl'>
                         <div className='text-neutral-600'>EZ</div>
@@ -23,10 +23,10 @@ const Header = () => {
                 <Link to ="/about">
                     <div className='hidden sm:inline hover:underline'>About</div>
                 </Link>
-                <Link to ="/Profile">
+                <Link to ="/profile">
                     <div className='hidden sm:inline hover:underline'>Profile</div>
                 </Link>
-                <Link to ="/Signin">
+                <Link to ="/signin">
                     <div className='hover:underline'>Signin</div>
                 </Link> 
             </div>

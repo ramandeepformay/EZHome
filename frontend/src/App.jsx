@@ -13,9 +13,9 @@ function App() {
       <Header/>
         <Routes>
           <Route path="/about" element={<About/>}/>
-          <Route path= "/home" element={<Home/>}/>
-          <Route path = "/profile" element={<Profile/>}/>
-          <Route path = "/signin" element={<Signin/>}/>
+          <Route path="/home" element={<Home/>}/>
+          <Route path ="/profile" element={<Profile/>}/>
+          <Route path ="/signin" element={<Signin/>}/>
           <Route path ="/signup" element={<Signup/>}/>
         </Routes>
     
