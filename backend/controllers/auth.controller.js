@@ -43,7 +43,7 @@ export const signin = async (req, res, next) => {
         const { password: _, ...updatedData } = findUser.toObject()
         res.cookie("access_token", token, {
             httpOnly: true
-        }).status(200).json({ msg: "user created successfuly", updatedData })
+        }).status(200).json({ msg: "user logged in successfuly", updatedData })
 
     } catch (error) {
         next(error)

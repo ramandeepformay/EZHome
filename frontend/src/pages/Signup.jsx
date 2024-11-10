@@ -4,46 +4,42 @@ import { useNavigate, Link } from 'react-router-dom'
 
 const Signup = () => {
   const navigate = useNavigate()
-  const [data, setData] = useState({})
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState(null)
-  const [val, setVal] = useState()
+  const [val, setVal] = useState({ email: "", username: "", password: "" })
   const handleChange = (e) => {
-    setData({ ...data, [e.target.id]: e.target.value })
+    setVal({ ...val, [e.target.id]: e.target.value })
   }
 
   const handleSubmit = async (e) => {
-    try{
-      setLoading(true)
+    try {
       e.preventDefault()
-      console.log(data)
+      setLoading(true)
       const res = await fetch("http://localhost:3006/api/auth/signup", {
         method: "POST",
         headers: {
           'Accept': 'application/json',
           'Content-Type': 'application/json'
         },
-        body: JSON.stringify(data)
+        body: JSON.stringify(val)
       })
-
       const dataResponse = await res.json()
-      console.log(dataResponse)
       if (dataResponse.success === false) {
         setLoading(false)
         setError(dataResponse.message)
-        setVal("")
+        setVal({ email: "", password: "", username: "" })
         return;
       }
       setLoading(false)
       setError(null)
-      setVal("")
+      setVal({ email: "", password: "", username: "" })
       navigate("/signin")
 
-    }catch(e){
+    } catch (e) {
       setLoading(false)
       setError(dataResponse.message)
     }
-    
+
   }
 
   return (
@@ -53,13 +49,13 @@ const Signup = () => {
       </div>
       <form onSubmit={handleSubmit} className='flex flex-col gap-4 '>
         <input type="text" placeholder="Username" className='p-2 rounded-md border focus:outline-none shadow-sm' id="username"
-        value={val}
+          value={val.username}
           onChange={handleChange} />
         <input type="email" placeholder="Email" className='p-2 rounded-md border focus:outline-none shadow-sm' id="email"
-          value={val}
+          value={val.email}
           onChange={handleChange} />
         <input type="password" placeholder="Password" className='p-2 rounded-md border  focus:outline-none shadow-sm' id="password"
-          value={val}
+          value={val.password}
           onChange={handleChange} />
         <button className='text-lg bg-neutral-400 rounded-md p-2 border uppercase hover:opacity-85 font-semibold'>
           <div className='flex justify-center items-center'>
@@ -68,17 +64,15 @@ const Signup = () => {
           </div>
         </button>
       </form>
+
       <div className='flex justify-center gap-2 my-2'>
-    
         <div> Have an Account? </div>
-        <Link to ={"/signin"}>
+        <Link to={"/signin"}>
           <div className='font-semibold hover:opacity-75 cursor-pointer underline'>Signin</div>
         </Link>
-        
-        
       </div>
       <div>
-        <p className='text-red-500 text-center'>{error}</p>
+        {error && <p className='text-red-500 text-center'>{error}</p>}
       </div>
     </div>
   )
