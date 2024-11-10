@@ -6,3 +6,7 @@ export const userSignupValidator = z.object({
     password: z.string()
 })
 
+export const userSignInValidator = z.object({
+    email: z.string().email(),
+    password: z.string()
+})
