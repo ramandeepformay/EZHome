@@ -68,7 +68,7 @@ const Signup = () => {
       <div className='flex justify-center gap-2 my-2'>
         <div> Have an Account? </div>
         <Link to={"/signin"}>
-          <div className='font-semibold hover:opacity-75 cursor-pointer underline'>Signin</div>
+          <div className='font-semibold hover:opacity-75 cursor-pointer underline'>Sign in</div>
         </Link>
       </div>
       <div>

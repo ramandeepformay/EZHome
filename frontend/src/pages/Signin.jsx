@@ -1,21 +1,22 @@
 import React, { useState } from 'react'
 import Spinner from '../assets/spinner'
 import { useNavigate, Link } from 'react-router-dom'
+import { useDispatch, useSelector } from 'react-redux'
+import { signinStart, signinFailue, signinSuccess } from '../redux/user/userSlice'
 
 const Signin = () => {
   const navigate = useNavigate()
-  const [loading, setLoading] = useState(false)
-  const [error, setError] = useState(null)
+  const dispatch = useDispatch()
   const [val, setVal] = useState({ email: "", password: "" })
-
+  const {loading, error} = useSelector((state)=>state.user)
   const handleChange = (e) => {
     setVal({ ...val, [e.target.id]: e.target.value })
   }
 
   const handleSubmit = async (e) => {
     try {
-      setLoading(true)
       e.preventDefault()
+      dispatch(signinStart())
       const res = await fetch("http://localhost:3006/api/auth/signin", {
         method: "POST",
         headers: {
@@ -27,19 +28,18 @@ const Signin = () => {
 
       const dataResponse = await res.json()
       if (dataResponse.success === false) {
-        setLoading(false)
-        setError(dataResponse.message)
+        dispatch(signinFailue(dataResponse.message))
         setVal({ email: "", password: "" })
         return;
       }
-      setLoading(false)
-      setError(null)
+      console.log(dataResponse)
+      dispatch(signinSuccess(dataResponse))
       setVal({ email: "", password: "" })
       navigate("/home")
 
     } catch (e) {
-      setLoading(false)
-      setError(dataResponse.message)
+      dispatch(signinFailue(dataResponse.message))
+
     }
   }
 
