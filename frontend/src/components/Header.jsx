@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 
 const Header = () => {
     return (
-        <header className='bg-stone-400 flex flex-wrap justify-between items-center p-4 max-w-8xl mx-auto shadow-lg'>
+        <header className='bg-stone-400 flex flex-wrap justify-between items-center py-4 px-2 max-w-8xl mx-auto shadow-lg'>
             <Link to="/home">
                 <div>
                     <h1 className='flex flex-wrap text-2xl sm:text-4xl'>
@@ -14,9 +14,9 @@ const Header = () => {
                 </div>
             </Link>
 
-            <div className='flex items-center bg-white rounded-md p-1 sm:p-2 shadow-md'>
-                <input type="text" name="text" placeholder="Search..." id="" className='w-24 focus:outline-none sm:w-64 bg-white text-sm ml-2' />
-                <FaSearch />
+            <div className='flex items-center justify-center bg-white rounded-md p-1 sm:p-2 shadow-md'>
+                <input type="text" name="text" placeholder="Search..." id="" className='w-24 focus:outline-none sm:w-48 bg-white text-sm ml-2'/>
+                <FaSearch/>
             </div>
 
             <div className='flex flex-wrap gap-4 text-lg font-semibold'>

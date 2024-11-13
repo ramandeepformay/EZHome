@@ -1,16 +1,17 @@
 import React, { useState } from 'react'
 import Spinner from '../assets/spinner'
 import { useNavigate, Link } from 'react-router-dom'
+import OAuth from '../components/OAuth'
 
 const Signup = () => {
   const navigate = useNavigate()
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState(null)
   const [val, setVal] = useState({ email: "", username: "", password: "" })
+
   const handleChange = (e) => {
     setVal({ ...val, [e.target.id]: e.target.value })
   }
-
   const handleSubmit = async (e) => {
     try {
       e.preventDefault()
@@ -57,12 +58,13 @@ const Signup = () => {
         <input type="password" placeholder="Password" className='p-2 rounded-md border  focus:outline-none shadow-sm' id="password"
           value={val.password}
           onChange={handleChange} />
-        <button className='text-lg bg-neutral-400 rounded-md p-2 border uppercase hover:opacity-85 font-semibold'>
+        <button className='text-lg bg-neutral-400 rounded-md p-2 border hover:opacity-85 font-semibold'>
           <div className='flex justify-center items-center'>
-            <div>SIGN UP </div>
+            <div>Sign up </div>
             <div>{loading ? <Spinner /> : null}</div>
           </div>
         </button>
+        <OAuth/>
       </form>
 
       <div className='flex justify-center gap-2 my-2'>

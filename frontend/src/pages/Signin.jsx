@@ -1,19 +1,26 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import Spinner from '../assets/spinner'
 import { useNavigate, Link } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
-import { signinStart, signinFailue, signinSuccess } from '../redux/user/userSlice'
+import { signinStart, signinFailue, clearError, signinSuccess } from '../redux/user/userSlice'
+import OAuth from '../components/OAuth'
 
 const Signin = () => {
   const navigate = useNavigate()
   const dispatch = useDispatch()
   const [val, setVal] = useState({ email: "", password: "" })
   const {loading, error} = useSelector((state)=>state.user)
+   
+  useEffect(() => {
+    dispatch(clearError()); 
+  }, [dispatch]);
+
   const handleChange = (e) => {
     setVal({ ...val, [e.target.id]: e.target.value })
   }
 
   const handleSubmit = async (e) => {
+
     try {
       e.preventDefault()
       dispatch(signinStart())
@@ -23,7 +30,9 @@ const Signin = () => {
           'Accept': 'application/json',
           'Content-Type': 'application/json'
         },
-        body: JSON.stringify(val)
+        body: JSON.stringify(val),
+        credentials: 'include'
+      
       })
 
       const dataResponse = await res.json()
@@ -32,7 +41,6 @@ const Signin = () => {
         setVal({ email: "", password: "" })
         return;
       }
-      console.log(dataResponse)
       dispatch(signinSuccess(dataResponse))
       setVal({ email: "", password: "" })
       navigate("/home")
@@ -55,12 +63,13 @@ const Signin = () => {
         <input type="password" placeholder="Password" className='p-2 rounded-md border  focus:outline-none shadow-sm' id="password"
           value={val.password}
           onChange={handleChange} />
-        <button className='text-lg bg-neutral-400 rounded-md p-2 border uppercase hover:opacity-85 font-semibold'>
+        <button className='text-lg bg-neutral-400 rounded-md p-2 border hover:opacity-85 font-semibold'>
           <div className='flex justify-center items-center'>
-            <div>SIGN IN </div>
+            <div>Sign in</div>
             <div>{loading ? <Spinner /> : null}</div>
           </div>
         </button>
+        <OAuth/>
       </form>
       <div className='flex justify-center gap-2 my-2'>
 
@@ -70,7 +79,8 @@ const Signin = () => {
         </Link>
       </div>
       <div>
-        {error&&<p className='text-red-500 text-center'>{error}</p>}
+       { console.log(error)}
+        {error && <p className='text-red-500 text-center'>{error}</p>}
       </div>
     </div>
   )
