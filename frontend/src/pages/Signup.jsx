@@ -34,7 +34,7 @@ const Signup = () => {
       setLoading(false)
       setError(null)
       setVal({ email: "", password: "", username: "" })
-      navigate("/signin")
+      navigate("/")
 
     } catch (e) {
       setLoading(false)

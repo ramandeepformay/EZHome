@@ -10,10 +10,10 @@ dotenv.config()
 export const signup = async (req, res, next) => {
     try {
         const inputValidion = userSignupValidator.safeParse(req.body);
-        const { username, email, password } = req.body;
         if (!inputValidion.success) {
             return next(errorHandler(400, "Inputs are incorrect"))
         }
+        const { username, email, password } = req.body;
         const hashPassword = bcryptjs.hashSync(password, 10)
         const newUser = await User.create({ username, email, password: hashPassword });
         const { password:_, ...updatedData } = newUser.toObject()
@@ -22,7 +22,6 @@ export const signup = async (req, res, next) => {
         next(errorHandler(error.status, error.message))
     }
 }
-
 
 export const signin = async (req, res, next) => {
     try {
@@ -60,7 +59,7 @@ export const google = async (req, res, next)=>{
             const token = jwt.sign({token: user._id}, process.env.JWT_SECRET)
             const{ password:_, ...updatedData} = user.toObject()
             res.cookie("access_token", token,{
-                http: true,
+                httpOnly: true,
                 path: "/"
             }).status(200).json(updatedData)
         }

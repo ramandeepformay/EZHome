@@ -43,7 +43,7 @@ const Signin = () => {
       }
       dispatch(signinSuccess(dataResponse))
       setVal({ email: "", password: "" })
-      navigate("/home")
+      navigate("/")
 
     } catch (e) {
       dispatch(signinFailue(dataResponse.message))

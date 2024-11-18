@@ -23,13 +23,13 @@ const OAuth = () => {
             body: JSON.stringify({
                 name: val.user.displayName,
                 email: val.user.email,
-                photoURL: val.user.photoURL
+                photoURL: val.user.photoURL,
             }),
             credentials: 'include'
         })
         const data = await res.json()
         dispatch(signinSuccess(data))
-        navigate("/home")
+        navigate("/")
         
     } catch (error) {
         console.log("Could not sign in with google", error);
